@@ -7,10 +7,9 @@ class Reviews():
         self.rating = rating
         self.comment = comment
 
-    
     def show_review(self):
-        print(f"Customer: {self.customer}")
-        print(f"Restaurant: {self.restaurant.name}")
-        print(f"Rating: {self.rating}")
-        print(f"Comment: {self.comment}")
-        print("-----------------------------")
+        print(f'Customer: {self.customer}')
+        print(f'Restaurant: {self.restaurant.name}')
+        print(f'Rating: {self.rating}')
+        print(f'Comment: {self.comment}')
+        print('-----------------------------')
