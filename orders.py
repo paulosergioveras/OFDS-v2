@@ -1,4 +1,5 @@
 from payments import Payment
+from delivery import DeliveryTracking
 
 
 class Orders():
@@ -7,14 +8,17 @@ class Orders():
         self.customer = customer
         self.restaurant = restaurant
         self.items = {}
-        self.status = 'Preparing'
         self.payment_status = 'Pending'
+        self.delivery_tracking = DeliveryTracking(self)
 
     def update_status(self, new_status):
-        self.status = new_status
+        self.delivery_tracking.update_status(new_status)
+
+    def get_status(self):
+        return self.delivery_tracking.get_status()
 
     def add_item(self, item, amount):
-        if item is not self.restaurant.menu:
+        if item not in self.restaurant.menu:
             return (f'The item "{item}" is not on the menu.')
         if item in self.items:
             self.items[item] += amount
