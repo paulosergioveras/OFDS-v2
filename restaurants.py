@@ -21,22 +21,27 @@ class Restaurant():
         if item in self.menu:
             self.menu[item] = new_price
 
-    def add_review(self, review):
-        self.reviews.append(review)
-
-    def display_reviews(self):
-        print('Restaurant Reviews:')
-        for review in self.reviews:
-            review.show_review()
-
 
 class RestaurantAnalytics:
     def __init__(self):
         self.data = {}
 
+    def add_review(self, restaurant, review):
+        if restaurant not in self.data:
+            self.data[restaurant] = {'total_orders': 0, 'revenue': 0, 'reviews': []}
+        self.data[restaurant]['reviews'].append(review)
+
+    def get_average_rating(self, restaurant):
+        if restaurant in self.data and 'reviews' in self.data[restaurant]:
+            reviews = self.data[restaurant]['reviews']
+            if reviews:
+                total_rating = sum(review.rating for review in reviews)
+                return total_rating / len(reviews)
+        return 'No reviews available'
+
     def record_order(self, restaurant, total_price):
         if restaurant not in self.data:
-            self.data[restaurant] = {'total_orders': 0, 'revenue': 0}
+            self.data[restaurant] = {'total_orders': 0, 'revenue': 0, 'reviews': []}
         self.data[restaurant]['total_orders'] += 1
         self.data[restaurant]['revenue'] += total_price
 
